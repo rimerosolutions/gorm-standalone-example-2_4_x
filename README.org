@@ -4,8 +4,10 @@
 
 This is a simple example demonstrating the usage of [[http://grails.org/doc/latest/guide/GORM.html][GORM]] outside [[http://grails.org][Grails]].
 
-It's a continuation of the [[https://github.com/rimerosolutions/gorm-standalone-example][GORM standalone example]] project adapted for 
-Grails 2.4.x. Spring Boot is used to handle the configuration and bootstrapping.
+It's a continuation of the [[https://github.com/rimerosolutions/gorm-standalone-example][GORM standalone example]] (Grails 2.x prior to version 2.3)
+project adapted for Grails 2.4.x. 
+
+Spring Boot is used to handle the configuration and bootstrapping.
 
 * References
 
