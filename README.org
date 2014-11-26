@@ -1,0 +1,61 @@
+#+TITLE: Using GORM without Grails
+
+* Summary
+
+This is a simple example demonstrating the usage of [[http://grails.org/doc/latest/guide/GORM.html][GORM]] outside [[http://grails.org][Grails]].
+
+It's a continuation of the [[https://github.com/rimerosolutions/gorm-standalone-example][GORM standalone example]] project adapted for 
+Grails 2.4.x. Spring Boot is used to handle the configuration and bootstrapping.
+
+* References
+
+- https://spring.io/guides/gs/accessing-data-gorm/
+- http://mhdevelopment.wordpress.com/2014/02/09/bootstrap-an-application-with-spring-boot-part1-command-line/
+- http://www.leveluplunch.com/java/tutorials/003-getting-started-with-spring-boot/
+- https://github.com/spring-projects/spring-boot/blob/master/spring-boot/src/main/java/org/springframework/boot/SpringApplication.java
+- https://github.com/spring-projects/spring-boot/issues/1372
+
+* Notes
+- This is a quick experiment and has been tested on JDK7 OSX only.
+- [[http://gradle.org][Gradle]] is used as build system.
+
+* Configuration and Data
+
+Here are the main resources of the project:
+- Gradle build file (=build.gradle=)
+- Resource bundle for validation errors translations (=src/main/resources/message.properties=)
+- [[http://logging.apache.org/log4j/1.2/][Log4j]] configuration (=src/main/resources/log4j.properties=)
+
+* Gotchas
+- Dependency resolution and GORM (methods missing in some Spring Framework releases expected to be found by specific GORM versions)
+- Other dependencies issues depending on the versions of Grails (grails-bootstrap), Spring Framework and GORM (grails-gorm)
+- For domain operations, either use transactional services or make sure that the Hibernate session is bound:
+ - =domainClass.withNewSession=
+ - =domainClass.withTransaction=
+
+* Running the application
+
+Execute the following targets to test and run the application
+
+On Unix/Linux platforms, run the following command:
+
+ : ./gradlew bootRun
+
+For MS Windows please run the following command:
+
+ : gradlew.bat bootRun
+
+* Generating IDE project files
+This is for people who would rather not use Gradle.
+
+** Unix/Linux platforms
+
+Please run the following command:
+
+ : ./gradlew idea eclipse
+
+** Windows
+
+Please run the following command:
+
+ : gradlew.bat idea eclipse

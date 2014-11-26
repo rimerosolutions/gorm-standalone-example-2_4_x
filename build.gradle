@@ -1,0 +1,38 @@
+buildscript {
+  repositories {
+    maven { url "https://repo.spring.io/libs-release" }
+    mavenLocal()
+    mavenCentral()
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.9.RELEASE")
+  }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'groovy'
+apply plugin: 'spring-boot'
+
+jar {
+  baseName = 'gorm-standalone-example_2_4_x'
+  version =  '0.1.0'
+}
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+  maven { url "https://repo.spring.io/libs-release" }
+}
+
+dependencies {
+  compile("org.springframework.boot:spring-boot-starter-web")
+  compile("org.grails:gorm-hibernate4-spring-boot:1.1.0.RELEASE")
+  runtime("com.h2database:h2")
+  testCompile("junit:junit")
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.1'
+}
