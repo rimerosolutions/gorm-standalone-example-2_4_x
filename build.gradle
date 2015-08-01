@@ -30,6 +30,13 @@ dependencies {
   compile("org.springframework.boot:spring-boot-starter-web")
   compile("org.grails:gorm-hibernate4-spring-boot:1.1.0.RELEASE")
   runtime("com.h2database:h2")
+
+  testCompile ('org.spockframework:spock-core:1.0-groovy-2.3') {
+    exclude module: "junit-dep"
+    exclude module: "groovy-all"
+  }
+  testCompile("org.springframework.boot:spring-boot-starter-test")
+  testCompile('org.spockframework:spock-spring:1.0-groovy-2.3')
   testCompile("junit:junit")
 }
 
