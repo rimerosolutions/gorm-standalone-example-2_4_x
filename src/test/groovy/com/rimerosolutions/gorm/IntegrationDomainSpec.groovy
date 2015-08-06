@@ -73,14 +73,15 @@ class IntegrationDomainSpec extends Specification {
     PersonService personService = context.getBean(PersonService)
 
     // Dummy user objects to persist
+    given:
     def persons = [
       new Person("firstName":"Franscisco", "lastName":"DelaNoche"),
       new Person("firstName":"Emmanuel", "lastName":"Dupuit")
     ]
 
     when: 'When the person information is correct'
-    persons.each { Person person ->
-      personService.validate(person)
+    persons.each { Person person -> 
+      assert personService.validate(person)
     }
 
     then: 'We save the list of valid persons'
