@@ -42,56 +42,56 @@ import spock.lang.Shared
  */
 class IntegrationDomainSpec extends Specification {
 
-  private AnnotationConfigApplicationContext doLoad(Class config) {
-    AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext()
-    applicationContext.register(config)
-    applicationContext.refresh()
+        private AnnotationConfigApplicationContext doLoad(Class config) {
+                AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext()
+                applicationContext.register(config)
+                applicationContext.refresh()
 
-    applicationContext
-  }
+                applicationContext
+        }
 
-  @EnableAutoConfiguration
-  @ComponentScan
-  private static class TestApplication {
+        @EnableAutoConfiguration
+        @ComponentScan
+        private static class TestApplication {
 
-    @Autowired
-    private PersonService personService
+                @Autowired
+                private PersonService personService
 
-    @Autowired
-    private MessageSource messageSource
-  }
+                @Autowired
+                private MessageSource messageSource
+        }
 
-  @Shared
-  @AutoCleanup
-  ApplicationContext context
+        @Shared
+        @AutoCleanup
+        ApplicationContext context
 
-  void setupSpec() {
-    context = doLoad(TestApplication)
-  }
+        void setupSpec() {
+                context = doLoad(TestApplication)
+        }
 
-  def 'We can save some valid domain objects'() {
-    PersonService personService = context.getBean(PersonService)
+        def 'We can save some valid domain objects'() {
+                PersonService personService = context.getBean(PersonService)
 
-    // Dummy user objects to persist
-    given:
-    def persons = [
-      new Person("firstName":"Franscisco", "lastName":"DelaNoche"),
-      new Person("firstName":"Emmanuel", "lastName":"Dupuit")
-    ]
+                // Dummy user objects to persist
+                given: "We have 2 persons to save to the DB"
+                def persons = [
+                        new Person("firstName":"Franscisco", "lastName":"DelaNoche"),
+                        new Person("firstName":"Emmanuel", "lastName":"Dupuit")
+                ]
 
-    when: 'When the person information is correct'
-    persons.each { Person person -> 
-      assert personService.validate(person)
-    }
+                when: 'When the person information is correct'
+                persons.each { Person person ->
+                        assert personService.validate(person)
+                }
 
-    then: 'We save the list of valid persons'
-    persons.each { Person person ->
-      personService.save(person)
-    }
+                then: 'We save the list of valid persons'
+                persons.each { Person person ->
+                        personService.save(person)
+                }
 
-    expect: 'We should have 2 persons in the DB'
-    def savedPersons = personService.findAll()
-    println "savedPersons ${savedPersons}"
-    savedPersons.size() == 2
-  }
+                expect: 'We should have 2 persons in the DB'
+                def savedPersons = personService.findAll()
+                println "savedPersons ${savedPersons}"
+                savedPersons.size() == 2
+        }
 }
